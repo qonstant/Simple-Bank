@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"testing"
-
 	_ "github.com/lib/pq"
 )
 
@@ -15,14 +14,17 @@ const (
 )
 
 var testQueries *Queries
+var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, dbSource)
+	// conn, err := sql.Open(dbDriver, dbSource)
+	testDB1, err := sql.Open(dbDriver, dbSource)
 	if err != nil {
 		log.Fatal("Failed to open database", err)
 	}
 
-	testQueries = New(conn)
+	testQueries = New(testDB1)
+	testDB = testDB1
 
 	os.Exit(m.Run())
 }
