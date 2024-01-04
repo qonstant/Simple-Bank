@@ -2,7 +2,7 @@
 INSERT INTO accounts (
   owner,
   balance,
-  currency
+  phone_number
 ) VALUES (
   $1, $2, $3
 ) RETURNING *; 
@@ -11,17 +11,32 @@ INSERT INTO accounts (
 SELECT * FROM accounts
 WHERE id = $1 LIMIT 1;
 
+-- name: GetAccountByNumber :one
+SELECT * FROM accounts
+WHERE phone_number = $1 LIMIT 1;
+
+-- name: GetAccountForUpdate :one
+SELECT * FROM accounts
+WHERE id = $1 LIMIT 1
+FOR NO KEY UPDATE;
+
+-- name: UpdateAccount :one
+UPDATE accounts
+SET balance = $2
+WHERE id = $1
+RETURNING *;
+
+-- name: AddAccountBalance :one
+UPDATE accounts
+SET balance = balance + sqlc.arg(amount)
+WHERE id = sqlc.arg(id)
+RETURNING *;
+
 -- name: ListAccounts :many
 SELECT * FROM accounts
 ORDER BY owner
 LIMIT $1
 OFFSET $2;
-
--- name: UpdateAccountBalance :exec
-UPDATE accounts 
-SET balance = $2
-WHERE id = $1
-RETURNING *;
 
 -- name: DeleteAccount :exec
 DELETE FROM accounts
