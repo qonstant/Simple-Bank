@@ -47,10 +47,10 @@ jobs:
         sudo mv migrate.linux-amd64 /usr/bin/migrate
         which migrate
 
-    - name: Run migrations
+    - name: Run migrations 
       run: |
-      make createdb
-      make migrateup
+          make createdb
+          make migrateup
 
     - name: Test
       run: make tests
