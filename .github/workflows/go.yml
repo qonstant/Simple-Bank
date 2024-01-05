@@ -48,9 +48,7 @@ jobs:
         which migrate
 
     - name: Run migrations 
-      run: |
-          make createdb
-          make migrateup
+      run: make migrateup
 
     - name: Test
       run: make tests
