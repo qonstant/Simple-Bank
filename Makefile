@@ -18,6 +18,9 @@ sqlc:
 
 tests:
 	go test -v -cover ./...
+
+storetest:
+	go test -timeout 30s -run ^/TestTransferTx$ -v
 	
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc tests
 
