@@ -37,8 +37,8 @@ jobs:
     
     - name: DB
       run: make postgres
-    -name: Migratoin
-      run: createdb
+    -name: Migration
+      run: make createdb
       run: make migrateup
 
     - name: Test
