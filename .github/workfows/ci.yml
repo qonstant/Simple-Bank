@@ -31,9 +31,7 @@ jobs:
           --health-retries 5
 
     steps:
-    - name: PG
-      run: make postgres
-      
+
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
@@ -50,8 +48,9 @@ jobs:
         which migrate
 
     - name: Run migrations
-      run: make createdb
-      run: make migrateup
+      run: |
+        make createdb
+        make migrateup
 
     - name: Tests
       run: make tests
