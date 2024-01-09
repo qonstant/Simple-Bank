@@ -21,6 +21,9 @@ tests:
 
 storetest:
 	go test -timeout 30s -run ^TestTransferTx$ -v
+
+server:
+	go run main.go
 	
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc tests
 
