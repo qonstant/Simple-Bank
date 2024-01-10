@@ -21,7 +21,7 @@ CREATE TABLE "transfers" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE INDEX ON "accounts" ("owner");
+CREATE INDEX ON "accounts" ("phone_number");
 
 CREATE INDEX ON "entries" ("account_id");
 

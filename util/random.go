@@ -2,9 +2,9 @@ package util
 
 import (
 	"math/rand"
-	"time"
-	"strings"
 	"strconv"
+	"strings"
+	"time"
 )
 
 const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -14,7 +14,7 @@ func init() {
 }
 
 func RandomInt(min, max int64) int64 {
-	return min + rand.Int63n(max - min + 1)
+	return min + rand.Int63n(max-min+1)
 }
 
 func RandomPhoneNumber() string {
@@ -23,6 +23,14 @@ func RandomPhoneNumber() string {
 		st += strconv.Itoa(int(RandomInt(0, 9)))
 	}
 	return st
+}
+
+func RandomFullName() string {
+	return RandomOwner() + " " + RandomOwner()
+}
+
+func RandomEmail() string {
+	return RandomOwner() + "@" + RandomOwner() + "." + RandomOwner()
 }
 
 func RandomString(n int) string {
@@ -48,4 +56,3 @@ func RandomCurrency() string {
 	n := len(currencies)
 	return currencies[rand.Intn(n)]
 }
-
