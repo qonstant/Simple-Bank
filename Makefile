@@ -32,12 +32,10 @@ mock:
 	mockgen -package mockdb -destination db/mock/store.go  Simple-Bank/db/sqlc Store
 
 storetest:
-	go test -timeout 30s -run ^TestTransferTx$ -v
+	go test -timeout 30s -run ^TestTransferTx$ -v -cover
 
 coverfile:
-	go test -coverprofile=c.out
-
-coverbrowser:
-	go test -coverprofile=c.out
+	go test -coverprofile=c.out\
+	go tool cover -html="c.out"
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc tests mock migrateup1 migratedown

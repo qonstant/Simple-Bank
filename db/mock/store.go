@@ -317,19 +317,19 @@ func (mr *MockStoreMockRecorder) ListEntries(arg0, arg1 interface{}) *gomock.Cal
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListEntries", reflect.TypeOf((*MockStore)(nil).ListEntries), arg0, arg1)
 }
 
-// ListTransers mocks base method.
-func (m *MockStore) ListTransers(arg0 context.Context, arg1 db.ListTransersParams) ([]db.Transfer, error) {
+// ListTransfers mocks base method.
+func (m *MockStore) ListTransfers(arg0 context.Context, arg1 db.ListTransfersParams) ([]db.Transfer, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListTransers", arg0, arg1)
+	ret := m.ctrl.Call(m, "ListTransfers", arg0, arg1)
 	ret0, _ := ret[0].([]db.Transfer)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListTransers indicates an expected call of ListTransers.
-func (mr *MockStoreMockRecorder) ListTransers(arg0, arg1 interface{}) *gomock.Call {
+// ListTransfers indicates an expected call of ListTransfers.
+func (mr *MockStoreMockRecorder) ListTransfers(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTransers", reflect.TypeOf((*MockStore)(nil).ListTransers), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTransfers", reflect.TypeOf((*MockStore)(nil).ListTransfers), arg0, arg1)
 }
 
 // ListUsers mocks base method.

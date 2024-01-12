@@ -2,7 +2,9 @@ package api
 
 import (
 	db "Simple-Bank/db/sqlc"
+	"Simple-Bank/token"
 	"database/sql"
+	"errors"
 	"log"
 	"net/http"
 
@@ -11,7 +13,6 @@ import (
 )
 
 type createAccountRequest struct {
-	Owner       string `json:"owner" binding:"required,min=2"`
 	PhoneNumber string `json:"phone_number" binding:"required,min=10,max=10"`
 }
 
@@ -21,8 +22,11 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+
 	arg := db.CreateAccountParams{
-		Owner:       req.Owner,
+		Owner:       authPayload.Username,
 		PhoneNumber: req.PhoneNumber,
 		Balance:     0,
 	}
@@ -60,6 +64,13 @@ func (server *Server) getAccount(ctx *gin.Context) {
 		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 	}
+
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+	if account.Owner != authPayload.Username {
+		err := errors.New("account doesn't belong to the authenticated user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
+	}
 	ctx.JSON(http.StatusOK, account)
 }
 
@@ -75,7 +86,9 @@ func (server *Server) listAccounts(ctx *gin.Context) {
 		return
 	}
 
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
 	arg := db.ListAccountsParams{
+		Owner:  authPayload.Username,
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}

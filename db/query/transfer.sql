@@ -11,7 +11,7 @@ INSERT INTO transfers (
 SELECT * FROM transfers
 WHERE id = $1 LIMIT 1;
 
--- name: ListTransers :many
+-- name: ListTransfers :many
 SELECT * FROM transfers
 ORDER BY created_at DESC
 LIMIT $1
