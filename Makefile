@@ -23,7 +23,7 @@ sqlc:
 	sqlc generate
 
 tests:
-	go test -v -cover ./...
+	cd api && go test -v -cover ./...
 
 server:
 	go run main.go
@@ -32,7 +32,7 @@ mock:
 	mockgen -package mockdb -destination db/mock/store.go  Simple-Bank/db/sqlc Store
 
 storetest:
-	go test -timeout 30s -run ^TestTransferTx$ -v -cover
+	go test -timeout 30s -run ^TestTransferTx$ -v -cover ./api
 
 coverfile:
 	go test -coverprofile=c.out\
